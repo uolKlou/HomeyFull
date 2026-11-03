@@ -6,7 +6,7 @@ A marketplace where people sell and buy homemade food. Customers find sellers, s
 
 ## Live demo
 
-(Add your Render address here, for example `https://homey-xxxx.onrender.com`.)
+(Add your Render address here, for example `(https://homeyfull.onrender.com)`.)
 
 The hosted version runs on Render's free plan. It goes to sleep after about 15 minutes without visitors, and the first visit afterwards can take up to a minute to load. Whenever it restarts, the database goes back to the starting data stored in `database/homey.db`, so orders, questions and accounts created online are lost. Run it locally (below) to keep your data.
 
