@@ -1,0 +1,4 @@
+node_modules/
+database/homey.db-journal
+.env
+.DS_Store

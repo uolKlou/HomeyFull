@@ -1,0 +1,15 @@
+{
+  "name": "homey",
+  "version": "2.0.0",
+  "description": "Homey: a marketplace for homemade food",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homey</title>
+    <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/extras.css">
+    <link rel="stylesheet" href="css/sprint2.css">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary text-center">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" id="brandLink"><img class="img-fluid logo" src="img/logo.png"></a>
+            <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav" id="navList"></ul>
+                
+            <div class="text-center login my-5 my-md-0 ">
+                <a class=" py-2 px-5 font-weight-bold ms-3" id="authLink" href="#">Register</a>
+              </div>
+            </div>
+           
+            <div class="col-md-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                </div>
+            </div>
+
+    </nav>
+    <!-- Navbar End -->
+    <div class="container mt-3"><p class="notice" id="notice" role="status" hidden></p></div>
+
+
+    <!-- Login view -->
+    <div id="loginView">
+        <div class="container my-5 py-5">
+            <div class="row justify-content-center">
+            <div class="col-md-6 col-10 bg-light" style="width: 18rem; min-height: 500px;">
+             <h1 class="py-3 mt-5 text-center">Login</h1>
+
+                <form class="px-4" id="loginForm" novalidate>
+                    <div class="form-message" id="formError" role="alert" hidden></div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label font-weight-bold text-left">Email address</label>
+                        <input type="email" class="form-control py-2" id="email" name="email" autocomplete="email">
+                        <div class="field-error" id="emailError" aria-live="polite"></div>
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label font-weight-bold">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" autocomplete="current-password">
+                        <div class="field-error" id="passwordError" aria-live="polite"></div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary col-8 py-2 font-weight-bold text-center" id="submitBtn">Login</button>
+                    </div>
+                    <p class="text-center mt-3 mb-0">New here? <a href="#" id="signupLink">Create an account</a></p>
+
+                    <!-- Test accounts for the demo - delete this block when a real backend exists -->
+                    <details class="test-accounts mt-3 text-center">
+                        <summary>Test accounts for the demo</summary>
+                        <div>Customer: sara@example.com / Test1234</div>
+                        <div>Seller: chef@example.com / Test1234</div>
+                    </details>
+
+                </form>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+            <!-- Sign-up view -->
+    <div id="signupView" hidden>
+        <div class="container my-5 py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-11 bg-light rounded p-4">
+                    <h1 class="py-3 text-center">Create your account</h1>
+                    <form id="signupForm" novalidate>
+                        <div class="form-message" id="signupError" role="alert" hidden></div>
+
+                        <fieldset class="role-fieldset">
+                            <legend class="font-weight-bold">First, choose your account type</legend>
+                            <div class="role-grid">
+                                <label class="role-card">
+                                    <input type="radio" name="role" value="customer" checked>
+                                    <span class="rc-body">
+                                        <span class="rc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span>
+                                        <span class="rc-title">I want to order food</span>
+                                        <span class="rc-sub">Customer account</span>
+                                        <span class="rc-text">Find homemade food near you, order it, and track your orders.</span>
+                                    </span>
+                                </label>
+                                <label class="role-card">
+                                    <input type="radio" name="role" value="seller">
+                                    <span class="rc-body">
+                                        <span class="rc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10l1-5h14l1 5"/><path d="M5 10v9h14v-9"/><path d="M9 19v-5h6v5"/></svg></span>
+                                        <span class="rc-title">I want to sell food</span>
+                                        <span class="rc-sub">Seller account</span>
+                                        <span class="rc-text">Open your shop, list your dishes, and manage the orders you receive.</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <p class="role-hint" id="roleHint">You will be able to browse sellers, place orders, and rate sellers.</p>
+                        </fieldset>
+
+                        <div class="mb-3">
+                            <label for="sName" class="form-label font-weight-bold" id="sNameLabel">Your name</label>
+                            <input type="text" class="form-control py-2" id="sName" autocomplete="name">
+                            <div class="field-error" id="sNameError" aria-live="polite"></div>
+                            <div class="form-text" id="sNameHelp" hidden>This is the shop name customers will see.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sEmail" class="form-label font-weight-bold">Email address</label>
+                            <input type="email" class="form-control py-2" id="sEmail" autocomplete="email">
+                            <div class="field-error" id="sEmailError" aria-live="polite"></div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="sPassword" class="form-label font-weight-bold">Password</label>
+                            <input type="password" class="form-control" id="sPassword" autocomplete="new-password">
+                            <div class="field-error" id="sPasswordError" aria-live="polite"></div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary col-10 py-2 font-weight-bold" id="signupBtn">Create customer account</button>
+                        </div>
+                        <p class="text-center mt-3 mb-0">Already have an account? <a href="#" id="loginLink">Login</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Browse view: sellers tab and dishes tab (stories 1, 6, 7) -->
+    <div id="browseView" hidden>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 class="section-title position-relative mb-md-5 mb-0">Homemade food near you</h1>
+                    </div>
+                    <div class="col-lg-6 mb-5 mb-lg-0 pb-5 pb-lg-0"></div>
+                </div>
+                <p id="greeting" class="mb-4" hidden></p>
+
+                <div class="tabs" role="tablist" aria-label="Browse by">
+                    <button type="button" class="tab" role="tab" id="tabBtnSellers" aria-selected="true" data-act="tab" data-tab="sellers">Sellers</button>
+                    <button type="button" class="tab" role="tab" id="tabBtnDishes" aria-selected="false" data-act="tab" data-tab="dishes">Dishes</button>
+                </div>
+
+                <div id="tabSellers" role="tabpanel">
+                    <div class="search-bar mb-3">
+                        <select id="cityFilter" aria-label="Choose your city">
+                            <option value="">All cities</option>
+                        </select>
+                    </div>
+                    <p id="sellerCount" class="text-center text-muted mb-5" aria-live="polite"></p>
+                    <div class="col-12">
+                        <div class="row" id="sellerGrid"></div>
+                        <div class="empty-state" id="sellerEmpty" hidden>
+                            <h3>No sellers in this city yet</h3>
+                            <p class="text-muted">Choose another city to see sellers near you.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tabDishes" role="tabpanel" hidden>
+                    <div class="filters">
+                        <div>
+                            <label for="dishSearch">Search dishes by name</label>
+                            <input type="search" class="form-control" id="dishSearch" placeholder="For example: kabsa" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="dishCategory">Category</label>
+                            <select class="form-control" id="dishCategory"><option value="">All categories</option></select>
+                        </div>
+                        <div>
+                            <label for="priceMin">Lowest price (SAR)</label>
+                            <input type="number" class="form-control" id="priceMin" min="0" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="priceMax">Highest price (SAR)</label>
+                            <input type="number" class="form-control" id="priceMax" min="0" placeholder="Any">
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <p class="result-count" id="dishCount" aria-live="polite"></p>
+                        <button type="button" class="link-btn" data-act="clear-filters">Clear search and filters</button>
+                    </div>
+                    <div class="row" id="dishGridAll"></div>
+                    <div class="empty-state" id="dishEmpty" hidden>
+                        <h3>No dishes match</h3>
+                        <p class="text-muted">Try a different name, category or price range.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seller profile view (story 8) -->
+    <div id="sellerView" hidden>
+        <div class="container py-5">
+            <a href="#" class="back-link font-weight-bold" data-act="go" data-view="browse">&larr; All sellers</a>
+            <div id="sellerPage"></div>
+        </div>
+    </div>
+
+    <!-- Order view -->
+    <div id="orderView" hidden>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-11 bg-light rounded p-4">
+                    <h1 class="py-3 text-center">Your order</h1>
+                    <div id="orderForm">
+                        <div id="orderItem" class="order-item"></div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary col-8 py-2 font-weight-bold" id="confirmBtn" data-act="confirm-order">Confirm order</button>
+                            <p class="mt-3 mb-0"><a href="#" data-act="back-seller">Back to the menu</a></p>
+                        </div>
+                    </div>
+                    <div id="orderDone" hidden>
+                        <div class="success-box" role="status">
+                            <h2>Order placed</h2>
+                            <p class="mb-0" id="orderDoneText"></p>
+                        </div>
+                        <div class="row-actions">
+                            <button type="button" class="btn btn-primary" data-act="go" data-view="myorders">Track my order</button>
+                            <button type="button" class="btn-line" data-act="go" data-view="browse">Back to sellers</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact a seller view (story 9) -->
+    <div id="contactView" hidden>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-11 bg-light rounded p-4">
+                    <h1 class="py-3 text-center" id="contactTitle">Contact the seller</h1>
+                    <form id="contactForm" novalidate>
+                        <div class="mb-3">
+                            <label for="contactDish" class="form-label font-weight-bold">What is your question about?</label>
+                            <select class="form-control" id="contactDish"></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label font-weight-bold">Your message</label>
+                            <textarea class="form-control" id="contactMessage" placeholder="Ask about ingredients, availability or pickup"></textarea>
+                            <div class="field-error" id="contactError" aria-live="polite"></div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary col-8 py-2 font-weight-bold">Send message</button>
+                            <p class="mt-3 mb-0"><a href="#" data-act="back-seller">Back to the seller</a></p>
+                        </div>
+                    </form>
+                    <div id="contactDone" hidden>
+                        <div class="success-box" role="status">
+                            <h2>Message sent</h2>
+                            <p class="mb-0" id="contactDoneText"></p>
+                        </div>
+                        <div class="row-actions">
+                            <button type="button" class="btn btn-primary" data-act="go" data-view="myquestions">See my questions</button>
+                            <button type="button" class="btn-line" data-act="back-seller">Back to the seller</button>
+                            <button type="button" class="btn-line" data-act="go" data-view="browse">Back to sellers</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer: my questions and the sellers' replies (story 9) -->
+    <div id="myquestionsView" hidden>
+        <div class="container py-5">
+            <div class="page-head"><h1>My questions</h1></div>
+            <div id="myQuestionsList"></div>
+        </div>
+    </div>
+
+    <!-- Customer: my orders, order status and rating (stories 15, 16) -->
+    <div id="myordersView" hidden>
+        <div class="container py-5">
+            <div class="page-head"><h1>My orders</h1></div>
+            <div id="myOrdersList"></div>
+        </div>
+    </div>
+
+    <!-- Seller: my dishes (stories 10, 11, 12, 13, 14) -->
+    <div id="mydishesView" hidden>
+        <div class="container py-5">
+            <div class="page-head">
+                <h1>My dishes</h1>
+                <button type="button" class="btn btn-primary" data-act="add-dish">Add a dish</button>
+            </div>
+            <div id="myDishesList"></div>
+        </div>
+    </div>
+
+    <!-- Seller: add or edit a dish (stories 4, 11, 13) -->
+    <div id="dishformView" hidden>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-11 bg-light rounded p-4">
+                    <h1 class="py-3 text-center" id="formTitle">Add a dish</h1>
+                    <form id="dishForm" novalidate>
+                        <div class="mb-3">
+                            <label for="fName" class="form-label font-weight-bold">Name</label>
+                            <input type="text" class="form-control" id="fName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fCategory" class="form-label font-weight-bold">Category</label>
+                            <select class="form-control" id="fCategory"></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fPrice" class="form-label font-weight-bold">Price (SAR)</label>
+                            <input type="number" class="form-control" id="fPrice" min="0" step="0.5">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fDesc" class="form-label font-weight-bold">Description</label>
+                            <textarea class="form-control" id="fDesc"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fPhoto" class="form-label font-weight-bold">Photo</label>
+                            <input type="file" class="form-control" id="fPhoto" accept="image/*">
+                            <img class="preview" id="fPreview" alt="Photo preview" hidden>
+                        </div>
+                        <div class="mb-4">
+                            <label for="fCity" class="form-label font-weight-bold">Location</label>
+                            <select class="form-control" id="fCity"></select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary col-8 py-2 font-weight-bold" id="fSubmit">Create dish</button>
+                            <p class="mt-3 mb-0"><a href="#" data-act="cancel-form">Cancel</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seller: orders I received -->
+    <div id="sellerordersView" hidden>
+        <div class="container py-5">
+            <div class="page-head"><h1>Orders</h1></div>
+            <div id="sellerOrdersList"></div>
+        </div>
+    </div>
+
+    <!-- Seller: questions from customers (story 9, seller side) -->
+    <div id="sellermessagesView" hidden>
+        <div class="container py-5">
+            <div class="page-head"><h1>Messages</h1></div>
+            <div id="sellerMessagesList"></div>
+        </div>
+    </div>
+
+    <!-- Seller: customer reviews and ratings (story 17) -->
+    <div id="myreviewsView" hidden>
+        <div class="container py-5">
+            <div class="page-head"><h1>Reviews</h1></div>
+            <div id="myReviewsBody"></div>
+        </div>
+    </div>
+
+
+    <!-- Footer Start -->
+    <footer class="footer text-center text-md-left">
+
+        <section class="bg-light py-4 py-md-5 py-xl-8 border-top border-light">
+            <div class="container overflow-hidden">
+                <div class="row gy-4 gy-lg-0 justify-content-xl-between">
+
+                    <div class="col-12 col-md-4 col-lg-3 col-xl-2 my-5 my-md-0">
+                        <div class="widget">
+                            <h4 class="widget-title mb-4">Get in Touch</h4>
+                            <address class="mb-4">Riyadh, KSA</address>
+                            <p class="mb-1">
+                                <a class="link-secondary text-decoration-none" href="tel:0554354949">0554354949</a>
+                            </p>
+                            <p class="mb-0">
+                                <a class="link-secondary text-decoration-none" href="mailto:demo@yourdomain.com">Hello@
+                                    Homey.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Copyright - Bootstrap Brain Component -->
+        <div class="bg-light py-4 py-md-3  py-xl-8 border-top border-light-subtle ">
+            <div class="container overflow-hidden">
+                <div class="row gy-4 gy-md-0 align-items-center">
+                    <div class="col-12  order-1 order-md-0">
+                        <div class="copyright text-center">
+                            &copy; 2026. All Rights Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        var btn = document.querySelector(".navbar-toggler");
+        var menu = document.getElementById("navbarNav");
+        if (btn && menu) btn.addEventListener("click", function () {
+            var open = menu.classList.toggle("show");
+            btn.setAttribute("aria-expanded", String(open));
+        });
+    })();
+    </script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
