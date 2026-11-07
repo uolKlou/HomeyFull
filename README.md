@@ -47,7 +47,7 @@ Rules the database enforces: one account per email, a role that is only `custome
 
 **Starting over:** stop the server, delete `database/homey.db`, and run `npm start` again. The database is rebuilt from `database/schema.sql` and `database/seed.sql`. If you change the tables in `schema.sql`, delete `homey.db` too, because the schema only runs when the file does not exist.
 
-The sample data has 12 shops, 25 dishes, 11 accounts (only the two test accounts can log in; the others appear in orders, reviews and questions), 5 orders, 16 reviews and 4 questions.
+The sample data has 12 shops, 25 dishes, 11 accounts , 5 orders, 16 reviews and 4 questions.
 
 ## How it fits together
 
@@ -58,8 +58,7 @@ the app (frontend/index.html)  ->  frontend/js/app.js  ->  frontend/js/api.js
 
 - `frontend/js/api.js` is the only file that talks to the backend, one function for each thing the screens do.
 - `server.js` checks who is asking, applies the rules, and runs the SQL.
-- The price of an order always comes from the database (with any discount applied), never from the page.
-- A seller can only change their own dishes, orders and messages, and only customers can order.
+
 
 ## What each story does
 
