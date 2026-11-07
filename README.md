@@ -43,9 +43,7 @@ The database file **`database/homey.db`** is included, so you can open it and lo
 | `messages` | customers' questions to sellers, and the sellers' replies | 9 |
 | `sessions` | who is logged in | 5 |
 
-Rules the database enforces: one account per email, a role that is only `customer` or `seller`, ratings from 1 to 5, discounts from 0 to 90, one review per order, and every link between tables must point to something that exists (foreign keys). Passwords are stored hashed (scrypt), never as plain text. Uploaded photos are saved in `uploads/`, and only their path is stored.
 
-**Starting over:** stop the server, delete `database/homey.db`, and run `npm start` again. The database is rebuilt from `database/schema.sql` and `database/seed.sql`. If you change the tables in `schema.sql`, delete `homey.db` too, because the schema only runs when the file does not exist.
 
 The sample data has 12 shops, 25 dishes, 11 accounts , 5 orders, 16 reviews and 4 questions.
 
