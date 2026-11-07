@@ -2,7 +2,6 @@
 
 A marketplace where people sell and buy homemade food. Customers find sellers, search for dishes, order and track their orders, ask sellers questions, and rate them. Sellers manage their dishes, receive orders, answer questions, and read their reviews.
 
-**All 17 user stories of the Product Backlog are built**, on a real SQLite database.
 
 ## Live demo
 
